@@ -35,33 +35,18 @@ foreach (var size in vectorSizes)
 
 
         float[] vector = MultiThreadedVectorMultiplier.GenerateRandomVector(size);
-        Console.WriteLine("vector");
-        Console.WriteLine(vector[0]);
-        Console.WriteLine(vector[10]);
-        Console.WriteLine(vector[100]);
-        Console.WriteLine(vector[1000]);
-        Console.WriteLine(vector[10000]);
+
         MultiThreadedVectorMultiplier algoritm = new MultiThreadedVectorMultiplier(vector, 2, count);
 
         Stopwatch stopwatch = Stopwatch.StartNew();
         float[] result = algoritm.SingleThreadedAlgorithm();
-        Console.WriteLine("single");
-        Console.WriteLine(result[0]);
-        Console.WriteLine(result[10]);
-        Console.WriteLine(result[100]);
-        Console.WriteLine(result[1000]);
-        Console.WriteLine(result[10000]);
+
         stopwatch.Stop();
         long singleThreadTime = stopwatch.ElapsedMilliseconds;
 
         stopwatch.Restart();
         float[] result2 = algoritm.MultiThreadedAlgorithm();
-        Console.WriteLine("multy");
-        Console.WriteLine(result2[0]);
-        Console.WriteLine(result2[10]);
-        Console.WriteLine(result2[100]);
-        Console.WriteLine(result2[1000]);
-        Console.WriteLine(result2[10000]);
+
         stopwatch.Stop();
         long multiThreadTime = stopwatch.ElapsedMilliseconds;
 
@@ -142,10 +127,10 @@ public class MultiThreadedVectorMultiplier
             threads[i].Start();
         }
 
-        //foreach (var thread in threads)
-        //{
-        //    thread.Join();
-        //}
+        foreach (var thread in threads)
+        {
+            thread.Join();
+        }
 
         return result;
 
