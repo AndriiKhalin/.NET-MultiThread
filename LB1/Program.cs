@@ -15,13 +15,21 @@ int myThreadCount = Int32.Parse(Console.ReadLine());
 
 MultiThreadedVectorMultiplier myAlgoritm = new MultiThreadedVectorMultiplier(myVector, myNumber, myThreadCount);
 
-float[] myResult = myAlgoritm.SingleThreadedAlgorithm();
+float[] singleThread = myAlgoritm.SingleThreadedAlgorithm();
+float[] multiThread = myAlgoritm.MultiThreadedAlgorithm();
+Console.WriteLine("SingleThread:");
+MultiThreadedVectorMultiplier.PrintVector(singleThread);
 
+Console.WriteLine("\nMultiThread:");
+MultiThreadedVectorMultiplier.PrintVector(multiThread);
 
-float[] myResult2 = myAlgoritm.MultiThreadedAlgorithm();
+//for (int i = 0; i < myResult.Length; i++)
+//{
+//    Console.WriteLine($"SingleThread:{myResult[i]}");
+//    Console.WriteLine($"SingleThread:{myResult2[i]}");
+//}
 
-
-
+Console.WriteLine("--------------------------------------");
 
 //Test the amount of acceleration
 int[] vectorSizes = { 1000000, 2000000, 3000000 };
@@ -39,13 +47,13 @@ foreach (var size in vectorSizes)
         MultiThreadedVectorMultiplier algoritm = new MultiThreadedVectorMultiplier(vector, 2, count);
 
         Stopwatch stopwatch = Stopwatch.StartNew();
-        float[] result = algoritm.SingleThreadedAlgorithm();
+        float[] singleThreadAlgorithm = algoritm.SingleThreadedAlgorithm();
 
         stopwatch.Stop();
         long singleThreadTime = stopwatch.ElapsedMilliseconds;
 
         stopwatch.Restart();
-        float[] result2 = algoritm.MultiThreadedAlgorithm();
+        float[] multiThreadAlgorithm = algoritm.MultiThreadedAlgorithm();
 
         stopwatch.Stop();
         long multiThreadTime = stopwatch.ElapsedMilliseconds;
@@ -134,6 +142,14 @@ public class MultiThreadedVectorMultiplier
 
         return result;
 
+    }
 
+    public static void PrintVector(float[] vector)
+    {
+        foreach (var element in vector)
+        {
+            Console.Write(element + " ");
+        }
+        Console.WriteLine();
     }
 }
